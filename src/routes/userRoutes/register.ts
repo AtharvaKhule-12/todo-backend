@@ -5,7 +5,7 @@ import { container } from 'tsyringe';
 
 export default async function register (req: Request, res: Response) {
     const { email, password } = req.body;
-    const userService = container.resolve(UserService);
+    const userService: UserService = container.resolve("UserService");
     try {
         const result = await userService.register(email, password);
         res.status(201).json({ message: result.message });

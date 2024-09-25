@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 
 export default async function login (req: Request, res: Response) {
     const { email, password } = req.body;
-    const userService = container.resolve(UserService);
+    const userService: UserService = container.resolve("UserService");
     const result = await userService.login(email, password);
     
     if (result.userId) {

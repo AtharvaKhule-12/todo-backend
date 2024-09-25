@@ -5,7 +5,7 @@ import TodoService from '../../services/todoService';
 import { container } from 'tsyringe';
 
 export default async function updateTodo (req: Request, res: Response) {
-    const todoService = container.resolve(TodoService);
+    const todoService: TodoService = container.resolve("TodoService");
     const { id } = req.params;
     const { title, completed } = req.body;
     let todo;

@@ -4,6 +4,6 @@ import { UserRepository } from '../../repositories/user';
 import { container } from 'tsyringe';
 
 export default async function logout (req: Request, res: Response) {
-    const userService = container.resolve(UserService);
+    const userService: UserService = container.resolve("UserService");
     userService.logout(req, res);
 }

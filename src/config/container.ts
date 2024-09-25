@@ -7,6 +7,6 @@ import TodoService from "../services/todoService";
 export function configureContainer(container: DependencyContainer): void {
   container.registerInstance("UserRepository", UserRepository);
   container.registerInstance("TodoRepository", TodoRepository);
-  container.registerSingleton(UserService);
-  container.registerSingleton(TodoService);
+  container.registerInstance("UserService", UserService);
+  container.registerInstance("TodoService", TodoService);
 }
