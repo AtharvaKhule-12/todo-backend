@@ -1,6 +1,12 @@
 import express from "express";
 import session from "express-session";
 import cors from "cors";
+import "reflect-metadata";
+import { container } from "tsyringe";
+import { UserRepository } from "./repositories/user";
+import { TodoRepository } from "./repositories/todo";
+import UserService from "./services/userService";
+import TodoService from "./services/todoService";
 import { userRoutes } from "./routes/userRoutes/index";
 import { todoRoutes } from "./routes/todoRoutes/index";
 
@@ -23,6 +29,12 @@ app.use(cors({
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, 
 }));
+
+// Register dependencies
+container.registerInstance("UserRepository", UserRepository);
+container.registerInstance("TodoRepository", TodoRepository);
+container.registerSingleton(UserService);
+container.registerSingleton(TodoService);
 
 // Use routes
 app.use("/users", userRoutes);

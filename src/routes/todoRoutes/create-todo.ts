@@ -2,12 +2,10 @@ import { Request, Response } from 'express';
 import { UserRepository } from '../../repositories/user';
 import { TodoRepository } from '../../repositories/todo';
 import TodoService from '../../services/todoService';
+import { container } from 'tsyringe';
 
 export default async function createTodo (req: Request, res: Response) {
-    const todoService = new TodoService({
-        todoRepository: TodoRepository,
-        userRepository: UserRepository
-    });
+    const todoService = container.resolve(TodoService);
     const { title } = req.body;
     let todo;   
     try {

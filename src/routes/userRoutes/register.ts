@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import UserService from '../../services/userService';
 import { UserRepository } from '../../repositories/user';
+import { container } from 'tsyringe';
 
 export default async function register (req: Request, res: Response) {
     const { email, password } = req.body;
-    const userService = new UserService({
-        userRepository: UserRepository
-    });
+    const userService = container.resolve(UserService);
     try {
         const result = await userService.register(email, password);
         res.status(201).json({ message: result.message });

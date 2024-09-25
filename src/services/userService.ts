@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../data-source";
+import { injectable, inject } from "tsyringe";
 import { User } from "../entity/user";
 import { UserRepository } from "../repositories/user";
 
@@ -9,16 +9,11 @@ declare module 'express-session' {
     }
 }
 
-type InjectedDependencies = {
-  userRepository: typeof UserRepository;
-};
-
+@injectable()
 class UserService {
-  private readonly userRepository_: typeof UserRepository;
-
-  constructor({userRepository}: InjectedDependencies) {
-    this.userRepository_ = userRepository;
-  }
+  constructor(
+    @inject("UserRepository") private userRepository_: typeof UserRepository
+  ) {}
 
   async register(email: string, password: string): Promise<{ message: string }> {
     const user = new User();

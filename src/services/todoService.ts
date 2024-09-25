@@ -1,23 +1,16 @@
-import { AppDataSource } from "../data-source";
+import { injectable, inject } from "tsyringe";
 import { Todo } from "../entity/todo";
 import { User } from "../entity/user";
 import { IsNull, UpdateResult } from "typeorm";
 import { TodoRepository } from "../repositories/todo";
 import { UserRepository } from "../repositories/user";
 
-type InjectedDependencies = {
-  todoRepository: typeof TodoRepository;
-  userRepository: typeof UserRepository;
-};
-
+@injectable()
 class TodoService {
-  private readonly todoRepository_: typeof TodoRepository;
-  private readonly userRepository_: typeof UserRepository;
-
-  constructor({todoRepository, userRepository}: InjectedDependencies) {
-    this.todoRepository_ = todoRepository;
-    this.userRepository_ = userRepository;
-  }
+  constructor(
+    @inject("TodoRepository") private todoRepository_: typeof TodoRepository,
+    @inject("UserRepository") private userRepository_: typeof UserRepository
+  ) {}
 
   async getAllTodos(userId: any): Promise<Todo[]> {
     try {
