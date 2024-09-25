@@ -9,6 +9,7 @@ import UserService from "./services/userService";
 import TodoService from "./services/todoService";
 import { userRoutes } from "./routes/userRoutes/index";
 import { todoRoutes } from "./routes/todoRoutes/index";
+import { configureContainer } from "./config/container";
 
 const app = express();
 app.use(express.json());
@@ -30,11 +31,8 @@ app.use(cors({
   credentials: true, 
 }));
 
-// Register dependencies
-container.registerInstance("UserRepository", UserRepository);
-container.registerInstance("TodoRepository", TodoRepository);
-container.registerSingleton(UserService);
-container.registerSingleton(TodoService);
+// Configure dependency injection
+configureContainer(container);
 
 // Use routes
 app.use("/users", userRoutes);
