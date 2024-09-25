@@ -1,0 +1,30 @@
+# Node.js dependencies
+node_modules/
+
+# npm debug log
+npm-debug.log*
+
+# Optional: Logs
+logs
+*.log
+
+# Optional: Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional: Coverage directory used by tools like istanbul
+coverage
+
+# Optional: Dependency directories
+jspm_packages/
+
+# Optional: Mac files
+.DS_Store
+
+# Optional: Editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
