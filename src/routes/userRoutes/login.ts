@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserService from '../../services/userService';
-import { container } from 'tsyringe';
+import { container } from '../../app';
 
 export default async function login (req: Request, res: Response) {
     const { email, password } = req.body;

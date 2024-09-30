@@ -9,11 +9,20 @@ declare module 'express-session' {
     }
 }
 
-@injectable()
+type UserServiceDependencies = {
+    userRepository_: typeof UserRepository;
+}
+
 class UserService {
+  private userRepository_: typeof UserRepository;
+
   constructor(
-    @inject("UserRepository") private userRepository_: typeof UserRepository
-  ) {}
+    {
+      userRepository_
+    }: UserServiceDependencies
+  ) {
+    this.userRepository_ = userRepository_;
+  }
 
   async register(email: string, password: string): Promise<{ message: string }> {
     const user = new User();

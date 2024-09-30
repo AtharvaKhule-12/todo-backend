@@ -5,12 +5,24 @@ import { IsNull, UpdateResult } from "typeorm";
 import { TodoRepository } from "../repositories/todo";
 import { UserRepository } from "../repositories/user";
 
-@injectable()
+type TodoServiceDependencies = {
+    todoRepository_: typeof TodoRepository;
+    userRepository_: typeof UserRepository;
+}
+
 class TodoService {
+  private todoRepository_: typeof TodoRepository;
+  private userRepository_: typeof UserRepository;
+
   constructor(
-    @inject("TodoRepository") private todoRepository_: typeof TodoRepository,
-    @inject("UserRepository") private userRepository_: typeof UserRepository
-  ) {}
+    {
+      todoRepository_,
+      userRepository_
+    }: TodoServiceDependencies
+  ) {
+    this.todoRepository_ = todoRepository_;
+    this.userRepository_ = userRepository_;
+  }
 
   async getAllTodos(userId: any): Promise<Todo[]> {
     try {

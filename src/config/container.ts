@@ -1,12 +1,14 @@
-import { DependencyContainer } from "tsyringe";
-import { UserRepository } from "../repositories/user";
-import { TodoRepository } from "../repositories/todo";
-import UserService from "../services/userService";
-import TodoService from "../services/todoService";
+import { asClass, asValue, AwilixContainer } from 'awilix';
+import { UserRepository } from '../repositories/user';
+import { TodoRepository } from '../repositories/todo';
+import UserService from '../services/userService';
+import TodoService from '../services/todoService';
 
-export function configureContainer(container: DependencyContainer): void {
-  container.registerInstance("UserRepository", UserRepository);
-  container.registerInstance("TodoRepository", TodoRepository);
-  container.registerInstance("UserService", UserService);
-  container.registerInstance("TodoService", TodoService);
+export function configureContainer(container: AwilixContainer) {
+  container.register({
+    userRepository_: asValue(UserRepository),
+    todoRepository_: asValue(TodoRepository),
+    UserService: asClass(UserService).singleton(),
+    TodoService: asClass(TodoService).singleton(),
+  });
 }

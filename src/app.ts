@@ -1,12 +1,7 @@
 import express from "express";
 import session from "express-session";
 import cors from "cors";
-import "reflect-metadata";
-import { container } from "tsyringe";
-import { UserRepository } from "./repositories/user";
-import { TodoRepository } from "./repositories/todo";
-import UserService from "./services/userService";
-import TodoService from "./services/todoService";
+import { createContainer } from "awilix";
 import { userRoutes } from "./routes/userRoutes/index";
 import { todoRoutes } from "./routes/todoRoutes/index";
 import { configureContainer } from "./config/container";
@@ -31,7 +26,8 @@ app.use(cors({
   credentials: true, 
 }));
 
-// Configure dependency injection
+// Configure dependency injection with Awilix
+export const container = createContainer();
 configureContainer(container);
 
 // Use routes
